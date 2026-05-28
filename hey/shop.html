@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shop Furniture | NUVELLE HOME</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <script src="assets/js/config.js"></script>
+</head>
+<body data-page="shop">
+  <div data-header></div>
+  <main class="section tint page-shell">
+    <div class="container">
+      <div class="page-kicker"><a href="index.html">Home</a><span>Products</span></div>
+      <div class="section-head compact">
+        <div><h1 id="shopTitle">Shop Luxury Furniture</h1><div class="divider"></div></div>
+        <a class="text-link" href="furniture.html">Furniture Categories</a>
+      </div>
+      <div class="shop-layout">
+        <aside class="filter-panel">
+          <div class="filter-block"><h3>Category</h3><div class="side-list filter-list" id="categoryList"></div></div>
+          <div class="filter-block"><h3>Brand</h3><div class="side-list filter-list" id="brandFilterList"></div></div>
+          <div class="filter-block"><h3>Size</h3><div class="side-list filter-list" id="sizeFilterList"></div></div>
+          <div class="filter-block"><h3>Price</h3><div class="price-filter"><input class="field" id="minPrice" type="number" min="0" placeholder="Min"><input class="field" id="maxPrice" type="number" min="0" placeholder="Max"></div></div>
+          <div class="filter-block"><label class="filter-switch"><input id="clearanceFilter" type="checkbox"><span>Clearance only</span></label></div>
+          <div class="filter-block"><h3>Customer Care</h3><p class="muted small">Ask about availability, pickup, delivery, or finish while shopping.</p></div>
+        </aside>
+        <section>
+          <div class="shopbar">
+            <input class="field" id="shopSearch" placeholder="Search furniture">
+            <select class="field" id="sortSelect">
+              <option value="new">Newest First</option>
+              <option value="priceAsc">Price: Low to High</option>
+              <option value="priceDesc">Price: High to Low</option>
+              <option value="nameAsc">Name: A-Z</option>
+              <option value="featured">Featured</option>
+              <option value="clearance">Clearance First</option>
+            </select>
+          </div>
+          <div class="product-grid" id="productGrid"></div>
+          <div class="load-more-row" id="productMore"></div>
+        </section>
+      </div>
+    </div>
+  </main>
+  <div data-footer></div>
+  <div data-chat></div>
+  <script src="assets/js/storefront.js"></script>
+</body>
+</html>

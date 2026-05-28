@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Frequently Asked Questions | NUVELLE HOME</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <script src="assets/js/config.js"></script>
+</head>
+<body>
+  <div data-header></div>
+  <main class="section tint">
+    <div class="container faq-page">
+      <div class="page-kicker title-breadcrumb"><a href="index.html">Home</a><span>Frequently Asked Questions</span></div>
+      <h1>Got questions? We can help.</h1>
+      <input class="field faq-search" type="search" placeholder="Search an answer" data-faq-search>
+      <div class="faq-tabs" aria-label="FAQ sections">
+        <a href="#ordering">Ordering</a>
+        <a href="#shipping">Shipping</a>
+        <a href="#payments">Payments</a>
+        <a href="#clearance">Clearance</a>
+      </div>
+      <section class="faq-list" id="ordering">
+        <details open><summary>How can I place an order?</summary><p>Add the pieces you want to cart, review your order, then continue to secure checkout. You can also ask Nuvelle Care about a product before ordering.</p></details>
+        <details><summary>Can I change an order after checkout?</summary><p>Contact Nuvelle Home as soon as possible. Changes depend on payment status, item availability, and whether pickup or delivery has already been scheduled.</p></details>
+      </section>
+      <section class="faq-list" id="shipping">
+        <details><summary>What shipping options are available?</summary><p>Pickup, ZIP-based delivery, and white-glove service may be available. Delivery is confirmed with the store before fulfillment.</p></details>
+        <details><summary>Do you deliver on weekends?</summary><p>No. Nuvelle Home is open Monday-Friday, 9:00 AM-5:00 PM, and closed on weekends.</p></details>
+      </section>
+      <section class="faq-list" id="payments">
+        <details><summary>How are payments handled?</summary><p>Checkout is prepared for Stripe, so card details are handled through secure payment infrastructure rather than stored by the storefront.</p></details>
+        <details><summary>Can I choose pickup at checkout?</summary><p>Yes. Pickup can be selected during checkout, and Nuvelle Home will confirm timing.</p></details>
+      </section>
+      <section class="faq-list" id="clearance">
+        <details><summary>Are clearance items final sale?</summary><p>Yes. Clearance items are final sale and may be discounted because inventory is changing, the item is discontinued, or packaging has changed.</p></details>
+        <details><summary>Can I ask about an item before buying?</summary><p>Yes. Use the product page or live chat to ask Nuvelle Care about measurements, delivery, pickup, or availability.</p></details>
+      </section>
+      <section class="assistance-strip">
+        <div><h2>Need further assistance?</h2><p>Nuvelle Care can help with product questions, delivery timing, and checkout support.</p></div>
+        <button class="btn btn-primary" type="button" onclick="document.querySelector('[data-chat-panel]')?.classList.add('open')">Contact Us</button>
+      </section>
+    </div>
+  </main>
+  <div data-footer></div>
+  <div data-chat></div>
+  <script src="assets/js/storefront.js"></script>
+</body>
+</html>

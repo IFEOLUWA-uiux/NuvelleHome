@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NUVELLE HOME Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/admin.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="assets/js/config.js"></script>
+</head>
+<body>
+  <section class="admin-login" id="loginScreen">
+    <div class="admin-visual">
+      <div class="admin-visual__copy">
+        <span class="label" style="color:#ead8b8">NUVELLE HOME</span>
+        <h1>Store control for Axel.</h1>
+        <p>Manage products, clearance, orders, delivery rules, and customer messages.</p>
+      </div>
+    </div>
+    <div class="admin-panel">
+      <form class="admin-card" id="loginForm">
+        <a class="brand" href="index.html"><span><strong>NUVELLE HOME</strong><span>Admin</span></span></a>
+        <div id="loginError" class="hidden" style="margin:18px 0;color:var(--danger);font-size:13px"></div>
+        <label style="margin-top:28px">Email <input class="field" id="loginEmail" type="email" autocomplete="username" required></label>
+        <label style="margin-top:14px">Password <input class="field" id="loginPassword" type="password" autocomplete="current-password" required></label>
+        <button class="btn btn-primary" type="submit" style="width:100%;margin-top:18px">Sign In</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="admin-shell hidden" id="adminShell">
+    <aside class="admin-sidebar">
+      <a class="brand" href="index.html"><span><strong>NUVELLE HOME</strong><span>Admin</span></span></a>
+      <nav class="admin-nav">
+        <button class="active" data-admin-page="dashboard">Dashboard</button>
+        <button data-admin-page="products">Products</button>
+        <button data-admin-page="product-form">Add Product</button>
+        <button data-admin-page="collections">Collections</button>
+        <button data-admin-page="journal">Journal</button>
+        <button data-admin-page="showcase">Showcase Images</button>
+        <button data-admin-page="orders">Orders</button>
+        <button data-admin-page="messages">Messages</button>
+        <button data-admin-page="settings">Delivery Rules</button>
+      </nav>
+      <div style="margin-top:auto;display:grid;gap:10px">
+        <div class="muted small" id="adminUser">Not signed in</div>
+        <button class="btn" id="logoutBtn">Logout</button>
+      </div>
+    </aside>
+    <main class="admin-main">
+      <header class="admin-topbar">
+        <div><span class="label">NUVELLE HOME</span><h1 id="pageTitle">Dashboard</h1></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn" id="refreshBtn">Refresh</button>
+          <button class="btn" id="exportProductsBtn">Export Products</button>
+          <button class="btn btn-primary" data-admin-page-shortcut="product-form">New Product</button>
+        </div>
+      </header>
+      <div class="admin-content">
+        <section class="admin-page active" id="page-dashboard">
+          <div class="admin-grid">
+            <div class="admin-stat"><span class="label">Products</span><strong id="statProducts">0</strong><p class="muted small">Catalog rows</p></div>
+            <div class="admin-stat"><span class="label">Clearance</span><strong id="statClearance">0</strong><p class="muted small">Final-sale items</p></div>
+            <div class="admin-stat"><span class="label">Collections</span><strong id="statCollections">0</strong><p class="muted small">Editorial stories</p></div>
+            <div class="admin-stat"><span class="label">Journal</span><strong id="statJournals">0</strong><p class="muted small">Published articles</p></div>
+            <div class="admin-stat"><span class="label">Orders</span><strong id="statOrders">0</strong><p class="muted small">Latest records</p></div>
+            <div class="admin-stat"><span class="label">Messages</span><strong id="statMessages">0</strong><p class="muted small">Customer care inbox</p></div>
+          </div>
+          <div class="admin-box">
+            <span class="label">Store Status</span>
+            <h2 style="font-family:var(--serif);font-size:42px;line-height:1;margin:8px 0">Florida store details are active.</h2>
+            <p class="muted">Customer-facing pages use Miami contact information, secure checkout, favorites, clearance, and ZIP-based delivery rules.</p>
+          </div>
+        </section>
+
+        <section class="admin-page" id="page-products">
+          <div class="admin-toolbar">
+            <input class="field" id="productSearch" placeholder="Search products">
+            <select class="field" id="productFilter"><option value="all">All</option><option value="clearance">Clearance</option><option value="published">Published</option><option value="draft">Draft</option></select>
+            <button class="btn btn-primary" data-admin-page-shortcut="product-form">Add Product</button>
+          </div>
+          <div class="admin-table-wrap">
+            <table class="admin-table">
+              <thead><tr><th>Image</th><th>Product</th><th>Price</th><th>Clearance</th><th>Stock</th><th>Status</th><th>Actions</th></tr></thead>
+              <tbody id="productsBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="admin-page" id="page-product-form">
+          <div class="admin-box">
+            <span class="label" id="formMode">New Product</span>
+            <h2 id="formTitle" style="font-family:var(--serif);font-size:42px;line-height:1;margin:8px 0 18px">Product details</h2>
+            <form class="admin-form" id="productForm">
+              <input type="hidden" id="fId">
+              <div class="admin-form-grid">
+                <label>Product Name <input class="field" id="fName" required></label>
+                <label>SKU <input class="field" id="fSku"></label>
+                <label>Brand <input class="field" id="fBrand" value="Nuvelle Home"></label>
+                <label>Category <select class="field" id="fCategory"></select></label>
+                <label>Subcategory <select class="field" id="fSubcategory"></select></label>
+                <label>Style <input class="field" id="fStyle" placeholder="Modern, Transitional, Contemporary"></label>
+                <label>Collection <select class="field" id="fCollectionSlug"></select></label>
+                <label>Regular Price <input class="field" id="fPrice" type="number" min="0" step="1"></label>
+                <label>Sale Price <input class="field" id="fSalePrice" type="number" min="0" step="1"></label>
+                <label>Compare At Price <input class="field" id="fCompareAtPrice" type="number" min="0" step="1"></label>
+                <label>Stock Quantity <input class="field" id="fStockQuantity" type="number" min="0" step="1"></label>
+                <label>Clearance Reason <select class="field" id="fClearanceReason"><option value="">None</option><option>New inventory is coming in</option><option>The product is discontinued</option><option>Packaging changed</option></select></label>
+                <label>Delivery Type <input class="field" id="fDeliveryType" placeholder="Delivery or pickup"></label>
+                <label class="admin-wide">Main Image URL <input class="field" id="fImage"></label>
+                <label>Upload Main Image <input class="field" id="heroUpload" type="file" accept="image/*"></label>
+                <label>Upload Product Video <input class="field" id="videoUpload" type="file" accept="video/*"></label>
+                <label class="admin-wide">Gallery Image URLs <textarea class="field" id="fGallery" placeholder="Separate image URLs with commas"></textarea></label>
+                <label class="admin-wide">Upload Gallery Images <input class="field" id="galleryUpload" type="file" accept="image/*" multiple></label>
+                <label class="admin-wide">Product Video URL <input class="field" id="fVideo"></label>
+                <label>Materials <input class="field" id="fMaterials"></label>
+                <label>Dimensions <input class="field" id="fDimensions"></label>
+                <label class="admin-wide">Description <textarea class="field" id="fDescription"></textarea></label>
+                <label>Colors <input class="field" id="fColors" placeholder="Ivory, Walnut, Brass"></label>
+                <label>Features <input class="field" id="fFeatures" placeholder="White-glove eligible, Floor sample"></label>
+              </div>
+              <div class="admin-checks">
+                <label><input type="checkbox" id="fPublished" checked> Published</label>
+                <label><input type="checkbox" id="fFeatured"> Featured</label>
+                <label><input type="checkbox" id="fInStock" checked> In stock</label>
+                <label><input type="checkbox" id="fClearance"> Clearance final sale</label>
+                <label><input type="checkbox" id="fPickup" checked> Allow pickup</label>
+                <label><input type="checkbox" id="fDelivery" checked> Allow delivery</label>
+              </div>
+              <div class="admin-actions">
+                <button class="btn btn-primary" type="submit">Save Product</button>
+                <button class="btn" type="button" id="resetProductBtn">Reset</button>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <section class="admin-page" id="page-collections">
+          <div class="admin-box">
+            <span class="label" id="collectionFormMode">New Collection</span>
+            <h2 id="collectionFormTitle" style="font-family:var(--serif);font-size:42px;line-height:1;margin:8px 0 18px">Collection story</h2>
+            <form class="admin-form" id="collectionForm">
+              <input type="hidden" id="cId">
+              <div class="admin-form-grid">
+                <label>Collection Title <input class="field" id="cTitle" required></label>
+                <label>Slug <input class="field" id="cSlug" placeholder="living-room-edit"></label>
+                <label>Date Label <input class="field" id="cDateLabel" placeholder="NUVELLE HOME"></label>
+                <label>Category <select class="field" id="cCategory"></select></label>
+                <label>Sort Order <input class="field" id="cSortOrder" type="number" min="1" step="1" value="1"></label>
+                <label>Upload Hero Image <input class="field" id="collectionHeroUpload" type="file" accept="image/*"></label>
+                <label class="admin-wide">Hero Image URL <input class="field" id="cHeroImage"></label>
+                <label class="admin-wide">Gallery Image URLs <textarea class="field" id="cGalleryImages" placeholder="Separate image URLs with commas"></textarea></label>
+                <label class="admin-wide">Upload Gallery Images <input class="field" id="collectionGalleryUpload" type="file" accept="image/*" multiple></label>
+                <label class="admin-wide">Short Excerpt <textarea class="field" id="cExcerpt" placeholder="A short preview for the collections page."></textarea></label>
+                <label class="admin-wide">Full Writeup <textarea class="field" id="cBody" placeholder="Write the collection story here."></textarea></label>
+              </div>
+              <div class="admin-checks">
+                <label><input type="checkbox" id="cPublished" checked> Published</label>
+              </div>
+              <div class="admin-actions">
+                <button class="btn btn-primary" type="submit">Save Collection</button>
+                <button class="btn" type="button" id="resetCollectionBtn">Reset</button>
+              </div>
+            </form>
+          </div>
+          <div class="admin-table-wrap" style="margin-top:18px">
+            <table class="admin-table">
+              <thead><tr><th>Image</th><th>Collection</th><th>Category</th><th>Status</th><th>Sort</th><th>Actions</th></tr></thead>
+              <tbody id="collectionsBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="admin-page" id="page-journal">
+          <div class="admin-box">
+            <span class="label" id="journalFormMode">New Journal Article</span>
+            <h2 id="journalFormTitle" style="font-family:var(--serif);font-size:42px;line-height:1;margin:8px 0 18px">Journal story</h2>
+            <form class="admin-form" id="journalForm">
+              <input type="hidden" id="jId">
+              <div class="admin-form-grid">
+                <label>Article Title <input class="field" id="jTitle" required></label>
+                <label>Slug <input class="field" id="jSlug" placeholder="miami-living-room-notes"></label>
+                <label>Date Label <input class="field" id="jDateLabel" placeholder="NUVELLE JOURNAL"></label>
+                <label>Sort Order <input class="field" id="jSortOrder" type="number" min="1" step="1" value="1"></label>
+                <label>Upload Hero Image <input class="field" id="journalHeroUpload" type="file" accept="image/*"></label>
+                <label class="admin-wide">Hero Image URL <input class="field" id="jHeroImage"></label>
+                <label class="admin-wide">Gallery Image URLs <textarea class="field" id="jGalleryImages" placeholder="Separate image URLs with commas"></textarea></label>
+                <label class="admin-wide">Upload Article Images <input class="field" id="journalGalleryUpload" type="file" accept="image/*" multiple></label>
+                <label class="admin-wide">Short Excerpt <textarea class="field" id="jExcerpt" placeholder="Short preview shown on journal cards."></textarea></label>
+                <label class="admin-wide">Full Article <textarea class="field" id="jBody" placeholder="Write the article here. Separate sections with a blank line."></textarea></label>
+              </div>
+              <div class="admin-checks">
+                <label><input type="checkbox" id="jPublished" checked> Published</label>
+              </div>
+              <div class="admin-actions">
+                <button class="btn btn-primary" type="submit">Save Journal Article</button>
+                <button class="btn" type="button" id="resetJournalBtn">Reset</button>
+              </div>
+            </form>
+          </div>
+          <div class="admin-table-wrap" style="margin-top:18px">
+            <table class="admin-table">
+              <thead><tr><th>Image</th><th>Article</th><th>Status</th><th>Sort</th><th>Actions</th></tr></thead>
+              <tbody id="journalsBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="admin-page" id="page-showcase">
+          <div class="admin-box">
+            <span class="label">Storefront Images</span>
+            <h2 style="font-family:var(--serif);font-size:42px;line-height:1;margin:8px 0 12px">About, category, and room tiles</h2>
+            <p class="muted">These images control the About page, furniture category cards, and room subcategory tiles. Hero videos stay hardcoded for speed and stability.</p>
+            <form class="admin-form" id="showcaseForm">
+              <div class="showcase-editor" id="showcaseEditor"></div>
+              <div class="admin-actions">
+                <button class="btn btn-primary" type="submit">Save Showcase Images</button>
+                <button class="btn" type="button" id="resetShowcaseBtn">Reload Saved Images</button>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <section class="admin-page" id="page-orders">
+          <div class="admin-table-wrap">
+            <table class="admin-table">
+              <thead><tr><th>Order</th><th>Customer</th><th>Total</th><th>Delivery</th><th>Payment</th><th>Status</th><th>Date</th><th>Action</th></tr></thead>
+              <tbody id="ordersBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="admin-page" id="page-messages">
+          <div class="admin-box">
+            <span class="label">Customer Care Inbox</span>
+            <div class="message-list" id="messagesList" style="margin-top:14px"></div>
+          </div>
+        </section>
+
+        <section class="admin-page" id="page-settings">
+          <div class="admin-box">
+            <span class="label">ZIP Delivery Rules</span>
+            <form class="admin-form" id="deliveryForm">
+              <div class="admin-form-grid">
+                <label>Local ZIP Prefixes <input class="field" id="sLocalPrefixes" placeholder="331"></label>
+                <label>Local Delivery Fee <input class="field" id="sLocalFee" type="number" min="0" step="1"></label>
+                <label>Florida ZIP Start <input class="field" id="sFloridaStart" type="number" min="0" step="1"></label>
+                <label>Florida ZIP End <input class="field" id="sFloridaEnd" type="number" min="0" step="1"></label>
+                <label>Florida Delivery Fee <input class="field" id="sFloridaFee" type="number" min="0" step="1"></label>
+                <label>White-Glove Fee <input class="field" id="sWhiteGloveFee" type="number" min="0" step="1"></label>
+              </div>
+              <p class="muted small">Weekend pickup and delivery are unavailable on the customer checkout page.</p>
+              <div class="admin-actions"><button class="btn btn-primary" type="submit">Save Delivery Rules</button></div>
+            </form>
+          </div>
+        </section>
+      </div>
+    </main>
+  </section>
+  <script src="assets/js/admin.js"></script>
+</body>
+</html>

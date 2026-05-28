@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NUVELLE HOME | Comfort meets style</title>
+  <meta name="description" content="NUVELLE HOME is a Miami furniture store offering luxury furniture, pickup, delivery, white-glove service, clearance sales, and secure checkout.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <script src="assets/js/config.js"></script>
+</head>
+<body data-page="home">
+  <div data-header></div>
+
+  <main>
+    <section class="hero">
+      <video data-hero-video poster="nuvelle-showroom-branded-v2.jpg" autoplay muted playsinline preload="auto"></video>
+      <div class="hero__content">
+        <h1>Comfort meets style.</h1>
+        <div class="hero-actions">
+          <a class="btn" href="shop.html">Shop Furniture</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section luxury-section">
+      <div class="container">
+        <div class="edge-head">
+          <h2>Recently added</h2>
+          <a href="recently-added.html">See All Our Latest Products</a>
+        </div>
+        <div class="product-rail" id="recentGrid"></div>
+      </div>
+    </section>
+
+    <section class="section luxury-section tint">
+      <div class="container">
+        <div class="edge-head">
+          <h2>Shop New Collections</h2>
+          <a href="collections.html">See All Our Latest Collections</a>
+        </div>
+        <div class="collection-mosaic" id="homeCollections"></div>
+      </div>
+    </section>
+
+    <section class="section luxury-section">
+      <div class="container">
+        <div class="edge-head">
+          <h2>Shop Luxury Furniture</h2>
+          <a href="furniture.html">Shop All Furniture</a>
+        </div>
+        <div class="category-grid furniture-grid" id="homeCategories"></div>
+      </div>
+    </section>
+
+    <section class="section expertise-section">
+      <div class="container">
+        <h2>Our Expertise</h2>
+        <div class="expertise-marquee" id="expertiseRail"></div>
+      </div>
+    </section>
+
+    <section class="section luxury-section tint">
+      <div class="container">
+        <div class="edge-head">
+          <h2>Enjoy Our Journal</h2>
+          <a href="journal.html">Read All Articles</a>
+        </div>
+        <div class="journal-track" id="homeJournalGrid"></div>
+      </div>
+    </section>
+
+    <section class="newsletter-band">
+      <div class="container newsletter-band__inner">
+        <div>
+          <span class="label">NUVELLE HOME</span>
+          <h2>Join Our Newsletter!</h2>
+        </div>
+        <form class="newsletter-form" data-newsletter>
+          <input class="field" name="first_name" placeholder="First name" required>
+          <input class="field" name="last_name" placeholder="Last name" required>
+          <input class="field" name="email" type="email" placeholder="Email address" required>
+          <button class="btn" type="submit">Subscribe</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <div class="journal-modal" id="journalModal" aria-hidden="true">
+    <div class="journal-top">
+      <div class="journal-top__inner">
+        <a class="brand-wordmark journal-wordmark" href="index.html"><strong>NUVELLE HOME</strong><span>Comfort meets style</span></a>
+        <button class="btn" type="button" data-close-journal>Close</button>
+      </div>
+    </div>
+    <article class="journal-article" id="journalArticle"></article>
+  </div>
+
+  <div data-footer></div>
+  <div data-chat></div>
+  <script src="assets/js/storefront.js"></script>
+</body>
+</html>

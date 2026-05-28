@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Design Services | NUVELLE HOME</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <script src="assets/js/config.js"></script>
+</head>
+<body>
+  <div data-header></div>
+  <main class="section tint">
+    <div class="container">
+      <div class="section-head">
+        <div><div class="page-kicker title-breadcrumb"><a href="index.html">Home</a><span>Design Services</span></div><span class="label">Design Services</span><h1 style="font-family:var(--serif);font-size:clamp(42px,6vw,70px);line-height:1;margin:8px 0 0">Help choosing the right pieces.</h1><div class="divider"></div></div>
+        <p>Ask Nuvelle Care about room fit, material choices, delivery timing, and product availability.</p>
+      </div>
+      <div class="service-grid">
+        <article class="service-card"><span class="label">Room Fit</span><h3>Scale and layout help.</h3><p class="muted">Share dimensions or product links in chat before checkout.</p></article>
+        <article class="service-card"><span class="label">Availability</span><h3>Confirm stock.</h3><p class="muted">Ask about limited items, clearance quantities, and delivery windows.</p></article>
+        <article class="service-card"><span class="label">Delivery</span><h3>Plan pickup or delivery.</h3><p class="muted">ZIP-based delivery and white-glove service are handled during checkout.</p></article>
+      </div>
+      <div class="contact-card" style="margin-top:24px">
+        <span class="label">Start Here</span>
+        <h2>Open live chat for customer care.</h2>
+        <p class="muted">Messages go to the admin inbox so the store can respond during business hours.</p>
+        <div class="title-actions"><button class="btn btn-primary" onclick="document.querySelector('[data-chat-panel]')?.classList.add('open')">Chat with Nuvelle Care</button></div>
+      </div>
+    </div>
+  </main>
+  <div data-footer></div>
+  <div data-chat></div>
+  <script src="assets/js/storefront.js"></script>
+</body>
+</html>

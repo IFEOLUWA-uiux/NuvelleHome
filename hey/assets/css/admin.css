@@ -1,0 +1,151 @@
+.admin-login {
+  min-height: 100svh;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 430px;
+  background: var(--linen);
+}
+.admin-visual {
+  position: relative;
+  background: #111 url("../../nuvelle-showroom-branded-v2.jpg") center/cover;
+  color: white;
+}
+.admin-visual::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,0,0,.62), rgba(0,0,0,.12)); }
+.admin-visual__copy {
+  position: absolute;
+  z-index: 1;
+  left: min(8vw, 88px);
+  bottom: min(9vw, 96px);
+  width: min(560px, calc(100% - 48px));
+}
+.admin-visual h1 { font-family: var(--serif); font-size: clamp(44px, 6vw, 78px); line-height: 1; margin: 10px 0; }
+.admin-panel { display: grid; place-items: center; padding: 28px; background: var(--paper); border-left: 1px solid var(--line); }
+.admin-card { width: 100%; max-width: 360px; }
+.admin-shell { min-height: 100svh; display: grid; grid-template-columns: 250px minmax(0, 1fr); background: var(--linen); }
+.admin-sidebar {
+  background: var(--paper);
+  border-right: 1px solid var(--line);
+  padding: 22px 16px;
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.admin-nav { display: grid; gap: 6px; }
+.admin-nav button {
+  min-height: 42px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  text-align: left;
+  padding: 0 12px;
+  font-weight: 600;
+}
+.admin-nav button.active, .admin-nav button:hover { background: white; color: var(--olive); box-shadow: inset 3px 0 0 var(--gold); }
+.admin-main { min-width: 0; }
+.admin-topbar {
+  min-height: 72px;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(255,253,248,.94);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(14px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 28px;
+}
+.admin-topbar h1 { font-family: var(--serif); font-size: 31px; margin: 0; }
+.admin-content { padding: 28px; }
+.admin-page { display: none; }
+.admin-page.active { display: block; }
+.admin-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; margin-bottom: 20px; }
+.admin-stat, .admin-box {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  padding: 20px;
+}
+.admin-stat strong { display: block; font-family: var(--serif); font-size: 38px; line-height: 1; margin-top: 7px; }
+.admin-toolbar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 190px auto;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.admin-table-wrap { background: var(--paper); border: 1px solid var(--line); overflow: auto; }
+.admin-table { width: 100%; border-collapse: collapse; min-width: 880px; }
+.admin-table th {
+  background: #f7f3eb;
+  color: var(--muted);
+  font-family: var(--wide);
+  font-size: 11px;
+  letter-spacing: .08em;
+  text-align: left;
+  text-transform: uppercase;
+  padding: 12px;
+}
+.admin-table td { border-top: 1px solid var(--line); padding: 12px; vertical-align: middle; font-size: 13px; }
+.admin-thumb { width: 62px; height: 52px; object-fit: cover; background: var(--linen); border: 1px solid var(--line); }
+.admin-form { display: grid; gap: 14px; }
+.admin-form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.admin-wide { grid-column: 1 / -1; }
+.admin-checks { display: flex; flex-wrap: wrap; gap: 14px; }
+.admin-checks label { display: flex; align-items: center; gap: 8px; color: var(--ink); font-family: var(--sans); font-size: 13px; letter-spacing: 0; text-transform: none; }
+.admin-actions { display: flex; flex-wrap: wrap; gap: 10px; border-top: 1px solid var(--line); padding-top: 16px; margin-top: 8px; }
+.status-pill { display: inline-flex; align-items: center; min-height: 25px; padding: 0 9px; border: 1px solid var(--line); background: white; font-size: 11px; font-weight: 700; }
+.status-pill.sale { color: white; background: var(--sale); border-color: var(--sale); }
+.status-pill.good { color: var(--success); border-color: rgba(61,128,96,.28); }
+.status-pill.warn { color: var(--terracotta); border-color: rgba(168,95,69,.28); }
+.message-list { display: grid; gap: 10px; }
+.message-card { background: white; border: 1px solid var(--line); padding: 14px; }
+.message-card.active { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(182,154,91,.12); }
+.showcase-editor {
+  display: grid;
+  gap: 10px;
+  max-height: 72vh;
+  overflow: auto;
+  padding-right: 4px;
+}
+.showcase-row {
+  display: grid;
+  grid-template-columns: 76px minmax(190px, 1fr) minmax(220px, 1.1fr) minmax(190px, .9fr);
+  gap: 12px;
+  align-items: center;
+  border: 1px solid var(--line);
+  background: white;
+  padding: 10px;
+}
+.showcase-preview {
+  width: 76px;
+  height: 58px;
+  object-fit: cover;
+  background: var(--linen);
+  border: 1px solid var(--line);
+}
+.showcase-copy {
+  display: grid;
+  gap: 3px;
+}
+.showcase-copy span {
+  color: var(--muted);
+  font-size: 12px;
+}
+.hidden { display: none !important; }
+@media (max-width: 1050px) {
+  .admin-login, .admin-shell { grid-template-columns: 1fr; }
+  .admin-visual { min-height: 330px; }
+  .admin-sidebar { position: static; height: auto; }
+  .admin-nav { grid-template-columns: repeat(3, 1fr); }
+  .admin-grid, .admin-form-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 680px) {
+  .admin-content { padding: 16px; }
+  .admin-topbar { align-items: flex-start; flex-direction: column; padding: 14px 16px; }
+  .admin-nav, .admin-grid, .admin-toolbar, .admin-form-grid { grid-template-columns: 1fr; }
+  .showcase-row { grid-template-columns: 76px minmax(0, 1fr); }
+  .showcase-row .field { grid-column: 1 / -1; }
+  .admin-wide { grid-column: auto; }
+}

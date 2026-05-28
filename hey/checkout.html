@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Secure Checkout | NUVELLE HOME</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <script src="assets/js/config.js"></script>
+</head>
+<body data-page="checkout">
+  <div data-header></div>
+  <main class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="page-kicker title-breadcrumb"><a href="index.html">Home</a><a href="cart.html">Cart</a><span>Checkout</span></div>
+          <span class="label">Checkout</span>
+          <h1 style="font-family:var(--serif);font-size:clamp(42px,6vw,70px);line-height:1;margin:8px 0 0">Secure checkout.</h1>
+          <div class="divider"></div>
+        </div>
+        <p>Enter contact and delivery details. Payment opens through Stripe after your order is verified.</p>
+      </div>
+      <div class="checkout-layout">
+        <form class="checkout-form" id="checkoutForm">
+          <div class="form-grid">
+            <input class="field" name="first_name" placeholder="First name" required>
+            <input class="field" name="last_name" placeholder="Last name" required>
+          </div>
+          <div class="form-grid">
+            <input class="field" name="email" type="email" placeholder="Email address" required>
+            <input class="field" name="phone" placeholder="Phone number" required>
+          </div>
+          <input class="field" name="address" placeholder="Street address" required>
+          <div class="form-grid">
+            <input class="field" name="city" value="Miami" placeholder="City" required>
+            <input class="field" name="state" value="FL" placeholder="State" required>
+          </div>
+          <div class="form-grid">
+            <input class="field" name="zip" id="zip" placeholder="Delivery ZIP" inputmode="numeric">
+            <input class="field" name="country" value="United States" placeholder="Country" required>
+          </div>
+          <input class="field" name="preferred_date" type="date" aria-label="Preferred delivery or pickup date">
+          <div class="radio-grid">
+            <label class="radio-card"><input type="radio" name="delivery_method" value="delivery" checked><span><strong>Delivery</strong><br><span class="muted small">Fee calculated from ZIP.</span></span><span></span></label>
+            <label class="radio-card"><input type="radio" name="delivery_method" value="pickup"><span><strong>Pickup</strong><br><span class="muted small">Nuvelle Home will confirm pickup timing.</span></span><span>Free</span></label>
+            <label class="radio-card"><input type="checkbox" id="whiteGlove" name="white_glove"><span><strong>White-glove service</strong><br><span class="muted small">For careful handling and placement.</span></span><span></span></label>
+          </div>
+          <textarea class="field" name="notes" placeholder="Delivery notes, gate code, preferred date, or item questions"></textarea>
+          <button class="btn btn-primary" id="checkoutSubmit" type="submit">Proceed to Payment</button>
+          <p class="muted small">Weekend pickup and delivery are unavailable. Clearance items are final sale.</p>
+        </form>
+        <aside class="summary-card">
+          <span class="label">Order Summary</span>
+          <div id="checkoutItems" style="margin-top:12px"></div>
+          <div class="summary-line"><span>Subtotal</span><strong id="checkoutSubtotal">$0</strong></div>
+          <div class="summary-line"><span>Delivery</span><strong id="deliveryEstimate">Calculated by ZIP</strong></div>
+          <div class="summary-line"><span>Total before tax</span><strong id="checkoutTotal">$0</strong></div>
+        </aside>
+      </div>
+    </div>
+  </main>
+  <div class="sticky-checkout" data-sticky-checkout></div>
+  <div data-footer></div>
+  <div data-chat></div>
+  <script src="assets/js/storefront.js"></script>
+</body>
+</html>
